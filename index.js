@@ -1,9 +1,11 @@
 const express = require('express');
 const app = express();
+var cors = require('cors');
+
 require('dotenv').config();
 const myDir = (__dirname + '/views/index.html');
 
-
+app.use(cors({optionsSuccessStatus: 200}));
 app.use(express.static('public'));
 
 app.use((req, res, next) => {
@@ -21,18 +23,28 @@ app.get("/api/:date?", (req, res) => {
   if(!req.params.date){
 
     let date = new Date();
-    let ut = date.toUTCString();
-    let un = date.getTime()
-    res.json({unix: un, utc: ut });
+    let utcString = date.toUTCString();
+    let unixNumber = date.getTime()
+    res.json({unix: unixNumber, utc: utcString });
 
   } else {
+
     let date = new Date(req.params.date);
-    if(date.toUTCString() === "Invalid Date") date = new Date(+req.params.date);
-    if(date.toUTCString() === "Invalid Date" && !regex.test(date)) date = new Date();
-    let ut = date.toUTCString();
-    let un = date.getTime()
-    res.json({unix: un, utc: ut });
+
+    if(regex.test(req.params.date)) date = new Date(+req.params.date);
+
+    if(date.toUTCString() === "Invalid Date"){
+      res.json({error: "Invalid Date"})
+    } else {
+
+    let utcString = date.toUTCString();
+    let unixNumber = date.getTime()
+    res.json({unix: unixNumber, utc: utcString });
+
+    }
+
   }
+  
 });
 
 
