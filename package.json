@@ -1,6 +1,5 @@
 {
   "name": "fcc-api-projects-boilerplate",
-  "autho": "Jeffrey Morrison MacMullin II",
   "version": "0.0.1",
   "description": "An FCC Backend Challenge. The UI may not be pretty, but I am making these projects just to earn my certification. I hope these projects are a good way to demonstrate my ability as a developer.",
   "main": "index.js",
