@@ -17,8 +17,9 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/:date?", (req, res) => {
+  let regex = /^\d+$/;
   if(!req.params.date){
-    
+
     let date = new Date();
     let ut = date.toUTCString();
     let un = date.getTime()
@@ -27,6 +28,7 @@ app.get("/api/:date?", (req, res) => {
   } else {
     let date = new Date(req.params.date);
     if(date.toUTCString() === "Invalid Date") date = new Date(+req.params.date);
+    if(date.toUTCString() === "Invalid Date" && !regex.test(date)) date = new Date();
     let ut = date.toUTCString();
     let un = date.getTime()
     res.json({unix: un, utc: ut });
